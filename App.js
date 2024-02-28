@@ -10,7 +10,6 @@ export default function App() {
 	function calculateBMI() {
 		const bmi = weight / (height * height);
 		checkBMI(bmi);
-		setResult(bmi.toFixed(2));
 		setWeight(0);
 		setHeight(0);
 	}
@@ -22,9 +21,13 @@ export default function App() {
 			setErrorMessage("Túl kicsi a testtömegindex!");
 		} else if (bmi > 18 && bmi < 25) {
 			setErrorMessage("");
+			setResult(bmi.toFixed(2));
+			return;
 		} else {
 			setErrorMessage("A testtömegindexet nem sikerült kiszámítani!");
 		}
+
+		setResult("Hiba!");
 	}
 
 	return (
@@ -37,14 +40,12 @@ export default function App() {
 						value={weight}
 						onChangeText={setWeight}
 						style={styles.input}
-						inputType="number"
 					/>
 					<Text style={styles.inputTitle}>Testmagasság (méter)</Text>
 					<TextInput
 						value={height}
 						onChangeText={setHeight}
 						style={styles.input}
-						inputType="number"
 					/>
 				</View>
 				<Pressable style={styles.button} onPress={calculateBMI}>
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "space-evenly",
+		padding: 20,
 	},
 	containerBorder: {
 		alignItems: "center",
@@ -83,6 +85,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 30,
 		textAlign: "center",
+		marginBottom: 20,
 	},
 	inputTitle: {
 		fontSize: 20,
